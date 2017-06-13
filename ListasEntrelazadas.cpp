@@ -38,8 +38,6 @@ int menu()
     scanf("%d", &opc);
     return opc;
 }
-
-
 COLUMNA *CrearColumna(MATRIZ *matriz)
 {
 	COLUMNA *nuevo=NULL, *anterior=NULL, *cab=NULL;
@@ -60,7 +58,6 @@ COLUMNA *CrearColumna(MATRIZ *matriz)
 	}
 	return cab;
 }
-
 MATRIZ *CrearFila(MATRIZ *matriz)
 {
 	FILA *nuevo=NULL, *anterior=NULL, *cab=NULL;
@@ -81,7 +78,6 @@ MATRIZ *CrearFila(MATRIZ *matriz)
 	}
 	return (matriz);
 }
-
 MATRIZ *Crear()
 {
 	int fila,columna;
@@ -99,8 +95,6 @@ MATRIZ *Crear()
 	matriz=CrearFila(matriz);
 	return (matriz);
 }
-
-
 //************************************************************************************************
 void Listar(MATRIZ *aux)
 {
@@ -118,8 +112,6 @@ void Listar(MATRIZ *aux)
     }while(aux_fila!=NULL);
     return;    
 }
-
-
 //************************************************************************************************
 void BuscarPosicion(MATRIZ *aux)
 {
@@ -144,9 +136,9 @@ void BuscarPosicion(MATRIZ *aux)
     FILA *aux_fila=NULL;
     COLUMNA *aux_columna=NULL;
     aux_fila=aux->fila;
-    for(int cont_f=0;cont_f<fila;cont_f++){
+    for(int cont_f=1 ; cont_f<=fila ; cont_f++){
         aux_columna=aux_fila->col;
-        for(int cont_c=0;cont_c<columna;cont_c++){
+        for(int cont_c=1 ; cont_c<=columna ; cont_c++){
             auxiliar=aux_columna->dato;
             aux_columna=aux_columna->sig_col;
         }
@@ -156,7 +148,67 @@ void BuscarPosicion(MATRIZ *aux)
     printf ("\n*** El dato en la posicion %d , %d es: %d *****",fila,columna,auxiliar);
     return;    
 }
-
+void MultiplicarEscalar(MATRIZ *aux)
+{
+	int esc=0;
+	FILA *aux_fila=NULL;
+    COLUMNA *aux_columna=NULL;
+    printf("\nIngrese el escalar a multiplicar: ");
+    scanf("%d", &esc);
+	aux_fila=aux->fila;
+    do{
+        aux_columna=aux_fila->col;
+        do{
+            (aux_columna->dato)*=esc;
+            aux_columna=aux_columna->sig_col;
+        }while(aux_columna!=NULL);
+        aux_fila=aux_fila->sig_fila;
+    }while(aux_fila!=NULL);
+    return;    
+}
+void RecorrerMatriz(MATRIZ *aux)
+{
+	MATRIZ *nueva_matriz=NULL,*nueva_anterior=NULL,*cab=NULL;
+	nueva_matriz=(MATRIZ *)malloc(sizeof(MATRIZ));
+	int auxi=cont=0;
+	int salir=1;
+	/*auxi=aux->n_columna;
+	aux->n_columna=aux->n_fila;
+	aux->n_fila=auxi;*/
+	FILA *aux_fila=*aux_nueva_fila=NULL;
+    COLUMNA *aux_columna=*aux_nueva_columna=NULL;
+    aux_fila=aux->fila;
+    do{
+        aux_columna=aux_fila->col;
+        do{
+			cont++;
+			if(cont==1||cont==aux->(n_fila+1));
+				CrearTranspuesta(aux, aux_columna->dato);
+            aux_columna=aux_columna->sig_col;
+        }while(aux_columna!=NULL);
+        printf ("\n");
+        aux_fila=aux_fila->sig_fila;
+    }while(aux_fila!=NULL);
+    return nueva_matriz;    
+    
+}
+void CrearTranspuesta(MATRIZ *aux, int dato)
+{
+	MATRIZ *matriz=NULL;
+	FILA *aux_fila=NULL;
+	COLUMNA *aux_columna=NULL;
+	matriz->n_fila=aux->n_columna;
+	matriz->n_columna=aux->n_fila;
+	aux_fila=matriz->fila;
+	do
+	{
+		do
+		{
+			aux_columna=aux_columna->sig_col;
+		}while(aux_columna!=NULL);
+		aux_fila=aux_fila->sig_fila;
+	}while(aux_fila!=NULL);
+}
 //************************************************************************************************
 void Submatriz(MATRIZ *aux)
 {
@@ -232,9 +284,12 @@ int main()
             	BuscarPosicion(matriz);
             break;
             case 4:
-            	
+            	system("clear");
+            	MultiplicarEscalar(matriz);
             break;
             case 5:
+            	system("clear");
+            	Transpuesta(matriz);
             break;
             case 6:
                 system("clear");
